@@ -1,0 +1,6 @@
+framework module Pods_BreathingApp {
+  umbrella header "Pods-BreathingApp-umbrella.h"
+
+  export *
+  module * { export * }
+}

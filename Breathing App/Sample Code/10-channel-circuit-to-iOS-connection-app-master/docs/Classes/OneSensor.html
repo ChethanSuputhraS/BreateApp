@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>OneSensor Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/OneSensor" class="dashAnchor"></a>
+    <a title="OneSensor Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (16% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        OneSensor Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BarGraphViewController.html">BarGraphViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InfoViewController.html">InfoViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LineChart.html">LineChart</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LineChartViewController.html">LineChartViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LinearScale.html">LinearScale</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OneSensor.html">OneSensor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PopOverViewController.html">PopOverViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StretchSenseClass.html">StretchSenseClass</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TableViewController.html">TableViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViewController.html">ViewController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v23StretchSense_Fabric_App18stretchsenseObjectCS_17StretchSenseClass">stretchsenseObject</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NSData.html">NSData</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>OneSensor</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">class</span> <span class="kt">OneSensor</span></code></pre>
+
+                </div>
+              </div>
+            <p>This class was designed and implemented to define a StretchSense sensor</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    The OneSensor is defined by a unique identifier UUID, the present value and an array of the 50 previous values and his color
+
+</div>
+
+<pre class="highlight swift"><code><span class="c1">// Exemple: Display the sensors connected in a table</span>
+
+   <span class="kd">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">,</span> <span class="n">numberOfRowsInSection</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+       <span class="c1">// This fonction give the number of row in the table</span>
+       <span class="k">return</span> <span class="n">stretchsenseObject</span><span class="o">.</span><span class="nf">getNumberOfDeviceConnected</span><span class="p">()</span>
+   <span class="p">}</span>
+
+   <span class="kd">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">,</span> <span class="n">cellForRowAtIndexPath</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UITableViewCell</span> <span class="p">{</span>
+       <span class="c1">// This function is called for each row in the table</span>
+       <span class="c1">// The row number of the table is define with his indexPath.row</span>
+
+       <span class="c1">// The current cell</span>
+       <span class="k">let</span> <span class="nv">cell</span> <span class="o">=</span> <span class="n">tableView</span><span class="o">.</span><span class="nf">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">"Cell"</span><span class="p">,</span> <span class="nv">forIndexPath</span><span class="p">:</span> <span class="n">indexPath</span><span class="p">)</span> <span class="k">as</span> <span class="kt">UITableViewCell</span>
+       <span class="c1">// The current peripheral</span>
+       <span class="k">let</span> <span class="nv">myPeripheral</span> <span class="o">=</span> <span class="n">listPeripheralsConnected</span><span class="p">[</span><span class="n">indexPath</span><span class="o">.</span><span class="n">row</span><span class="p">]</span>
+
+       <span class="c1">// display the title: value of the sensor</span>
+       <span class="n">cell</span><span class="o">.</span><span class="n">textLabel</span><span class="p">?</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">myPeripheralConnected</span><span class="o">.</span><span class="n">value</span>
+       <span class="c1">// display the subtitle: color name of the sensor</span>
+       <span class="n">cell</span><span class="o">.</span><span class="n">detailTextLabel</span><span class="p">?</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">myPeripheral</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">myPeripheral</span><span class="o">.</span><span class="n">uniqueNumber</span><span class="p">]</span><span class="o">.</span><span class="n">colorName</span>
+       <span class="c1">// display the background color of the cell: color of the sensor</span>
+       <span class="n">cell</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="n">myPeripheral</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">myPeripheral</span><span class="o">.</span><span class="n">uniqueNumber</span><span class="p">]</span><span class="o">.</span><span class="n">valueRGB</span>
+   <span class="p">}</span>
+</code></pre>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/VARIABLE"></a>
+                <a name="//apple_ref/swift/Section/VARIABLE" class="dashAnchor"></a>
+                <a href="#/VARIABLE">
+                  <h3 class="section-name">VARIABLE</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC23StretchSense_Fabric_App9OneSensor4uuidSS"></a>
+                    <a name="//apple_ref/swift/Property/uuid" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC23StretchSense_Fabric_App9OneSensor4uuidSS">uuid</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Universal Unique IDentifier</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">uuid</span> <span class="o">=</span> <span class="s">""</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC23StretchSense_Fabric_App9OneSensor5valueV12CoreGraphics7CGFloat"></a>
+                    <a name="//apple_ref/swift/Property/value" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC23StretchSense_Fabric_App9OneSensor5valueV12CoreGraphics7CGFloat">value</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Current value of the sensor</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">value</span> <span class="o">=</span> <span class="kt">CGFloat</span><span class="p">();</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC23StretchSense_Fabric_App9OneSensor12uniqueNumberSi"></a>
+                    <a name="//apple_ref/swift/Property/uniqueNumber" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC23StretchSense_Fabric_App9OneSensor12uniqueNumberSi">uniqueNumber</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A unique number for each sensor</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">uniqueNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC23StretchSense_Fabric_App9OneSensor21previousValueAveragedGSaV12CoreGraphics7CGFloat_"></a>
+                    <a name="//apple_ref/swift/Property/previousValueAveraged" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC23StretchSense_Fabric_App9OneSensor21previousValueAveragedGSaV12CoreGraphics7CGFloat_">previousValueAveraged</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The 50 previous samples averaged</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">previousValueAveraged</span> <span class="o">=</span> <span class="p">[</span><span class="kt">CGFloat</span><span class="p">](</span><span class="nv">count</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">repeatedValue</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC23StretchSense_Fabric_App9OneSensor29previousValueRawFromTheSensorGSaV12CoreGraphics7CGFloat_"></a>
+                    <a name="//apple_ref/swift/Property/previousValueRawFromTheSensor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC23StretchSense_Fabric_App9OneSensor29previousValueRawFromTheSensorGSaV12CoreGraphics7CGFloat_">previousValueRawFromTheSensor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The 50 previous raw samples from the sensor (not averaged)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">previousValueRawFromTheSensor</span> <span class="o">=</span> <span class="p">[</span><span class="kt">CGFloat</span><span class="p">](</span><span class="nv">count</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">repeatedValue</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:VC23StretchSense_Fabric_App9OneSensor5Color"></a>
+                    <a name="//apple_ref/swift/Struct/Color" class="dashAnchor"></a>
+                    <a class="token" href="#/s:VC23StretchSense_Fabric_App9OneSensor5Color">Color</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Structure of Color: (name: String, valueRGB: UIColor)</p>
+
+                        <a href="../Classes/OneSensor/Color.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">Color</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC23StretchSense_Fabric_App9OneSensor6colorsGSaVS0_5Color_"></a>
+                    <a name="//apple_ref/swift/Property/colors" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC23StretchSense_Fabric_App9OneSensor6colorsGSaVS0_5Color_">colors</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Array of color already implemented (Blue, Orange, Green, Red, Purple, Brown,
+Advice: use the variable uniqueNumber as reference of this array to have a unique color for each sensor</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">colors</span> <span class="p">:</span> <span class="p">[</span><span class="kt">Color</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2016-05-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
